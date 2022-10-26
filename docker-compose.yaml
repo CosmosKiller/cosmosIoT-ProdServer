@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+
+    emqx:
+        container_name: emqx-engine
+        image: emqx/emqx:5.0.8-amd64-alpine
+        restart: always
+        ports:
+            - 1883:1883
+            - 8883:8883
+            - 8093:8093
+            - 8090:8090
+            - 8094:8094
+            - 18083:18083
+            - 18084:18084
+
+    node-backend:
+        depends_on:
+            - mysql
+        container_name: node-backend
+        image: cosmoskiller/node-backend:1.0.0
+        environment:
+            MYSQL_HOST: "${MYSQL_HOST}"
+            MYSQL_USER: "${MYSQL_USER}" 
+            MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+            MYSQL_DB: "${MYSQL_DB}"
+            MYSQL_PORT: "${MYSQL_PORT}"
+            EMQX_HOST: "${EMQX_HOST}"
+            EMQX_USER: "${EMQX_USER}"
+            EMQX_PASSWORD: "${EMQX_PASSWORD}"
+            EMQX_PORT: "${EMQX_PORT}"
+
+    mysql:
+        container_name: serverDB
+        image: mysql:5.7
+        volumes:
+            - /home/serverAdmin/mysqlLocalServerData:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+            MYSQL_DATABASE: "${MYSQL_DATABASE}"
+        ports:
+            - 3306:3306
+    
+    web:
+        container_name: cosmos-iot-webapp
+        image: nginx:1.23.1-alpine
+        volumes:
+            - /home/serverAdmin/webApp:/usr/share/nginx/html:ro
+        ports:
+            - 8182:80
