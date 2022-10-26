@@ -48,3 +48,14 @@ services:
             - /home/serverAdmin/webApp:/usr/share/nginx/html:ro
         ports:
             - 8182:80
+
+    raspi-homehub:
+        depends_on:
+            - mysql
+        container_name: raspi-homehub
+        image: cosmoskiller/raspi-homehub:1.0.2-multi
+        environment:
+            EMQX_HOST: "${EMQX_HOST}"
+            EMQX_BACKEND_USER: "${EMQX_USER}"
+            EMQX_BACKEND_ PASSWORD: "${EMQX_PASSWORD}"
+            EMQX_PORT: "${EMQX_PORT}"
