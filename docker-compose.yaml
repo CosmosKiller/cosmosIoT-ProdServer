@@ -46,6 +46,15 @@ services:
         image: nginx:1.23.1-alpine
         volumes:
             - /home/serverAdmin/webApp:/usr/share/nginx/html:ro
+        environment:
+            MYSQL_HOST: "${MYSQL_HOST}"
+            MYSQL_USER: "${MYSQL_USER}" 
+            MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+            MYSQL_DB: "${MYSQL_DB}"
+            EMQX_HOST: "${EMQX_HOST}"
+            EMQX_WEBCLIENT_USER: "${EMQX_WEBCLIENT_USER}"
+            EMQX_WEBCLIENT_PASSWORD: "${EMQX_WEBCLIENT_PASSWORD}"
+            EMQX_WSS_PORT: "${EMQX_PORT}"
         ports:
             - 8182:80
 
@@ -57,5 +66,5 @@ services:
         environment:
             EMQX_HOST: "${EMQX_HOST}"
             EMQX_BACKEND_USER: "${EMQX_USER}"
-            EMQX_BACKEND_ PASSWORD: "${EMQX_PASSWORD}"
+            EMQX_BACKEND_PASSWORD: "${EMQX_PASSWORD}"
             EMQX_PORT: "${EMQX_PORT}"
