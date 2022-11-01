@@ -1,12 +1,12 @@
 # CosmosIoT Production Server :rocket:
 
-> Configuration files for Raspberry Pi-based servers 
+> Configuration files for RPi-based servers 
 
 ## Getting started
 
 ### ✅ In order to make the correct configuration of the server, follow these instructions:
 
-1) Pull this repo into your Raspberry Pi and navige to the root directory
+1) Pull this repo into your RPi and navige to the root directory
 ```sh
 Sudo apt install -y git
 
